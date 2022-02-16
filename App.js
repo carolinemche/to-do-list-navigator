@@ -17,11 +17,18 @@ class ToDoStack extends Component {
     return (
       <Stack.Navigator>
         <Stack.Screen 
-          name="To-Do List"
+          name="toDoInput"
           component={ ToDoInput }
           options={{
-            headerStyle: { backgroundColro}
+            headerTintColor: 'white',
+            headerStyle: { backgroundColor: 'blue'}
           }}
+        />
+
+        <Stack.Screen
+          name="toDoDetails"
+          component={ ToDoDetails }
+          options={}
         />
       </Stack.Navigator>
     )
@@ -37,9 +44,9 @@ export default class App extends Component {
             tabBarIcon: ({ focused, color, size }) => {
               let iconName;
 
-              if (route.name === 'ToDoInput') {
+              if (route.name === 'toDoTab') {
                 iconName = focused ? 'home' : 'home-outline';
-              } else if (route.name === 'Account') {
+              } else if (route.name === 'accountTab') {
                 iconName = focused ? 'person-circle' : 'person-circle-outline';
               }
 
@@ -51,8 +58,8 @@ export default class App extends Component {
             inactiveTintColor: 'gray'
           }}
         >
-          <Tab.Screen name='ToDoInput' component={ ToDoInput } />
-          <Tab.Screen name='Account' component={ Account } />
+          <Tab.Screen name='toDoTab' component={ ToDoInput } />
+          <Tab.Screen name='accounTabt' component={ Account } />
         </Tab.Navigator>
       </NavigationContainer>
     )
