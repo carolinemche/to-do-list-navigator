@@ -19,7 +19,7 @@ class ToDoStack extends Component {
         <Stack.Screen 
           name="toDoInput"
           component={ ToDoInput }
-          options={{
+          screenOptions={{
             headerTintColor: 'white',
             headerStyle: { backgroundColor: 'blue'}
           }}
@@ -28,7 +28,9 @@ class ToDoStack extends Component {
         <Stack.Screen
           name="toDoDetails"
           component={ ToDoDetails }
-          options={}
+          options={{
+            title: 'To-Do Details'
+          }}
         />
       </Stack.Navigator>
     )
