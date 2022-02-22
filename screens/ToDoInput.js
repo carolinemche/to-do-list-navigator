@@ -16,7 +16,6 @@ export default class ToDoInput extends Component {
   }
 
 
-  
 
 render(){
  
@@ -37,7 +36,6 @@ render(){
         {this.setState({body:txt});}}/>
 
         
-
 
 
         </SafeAreaView>
