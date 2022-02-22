@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
-import {  CheckBox, StyleSheet, Text, View,Button,TextInput,SafeAreaView} from 'react-native';
+import { StyleSheet, Text, View,Button,TextInput,SafeAreaView} from 'react-native';
+import ToDoItem from  '../components/ToDoItem';
 
 
 
@@ -13,63 +14,75 @@ export default class ToDoInput extends Component {
 
   addToDoItem(){
 
-  }
+    let currentTitle = this.state.title;
+    let currentBody = this.state.body;
+    let todolist = this.state.todos;
+    
+    
+    let task ={
+      id: todolist.length,
+      title: currentTitle ,
+      body: currentBody,
+      // completion task
+      status: false
+    }
+
+    //add task to the to do list
+    todolist.push(task);
+
+    }
+   
+
+  
 
 
 
-render(){
+  render() {
+    const { navigation, route } = this.props;
+    let { title,body,todos } = this.state;
+  
+
  
     return(
         <SafeAreaView style={styles.container}>
 
 
-        <Text>To Do List</Text>
-
+        {/* CURRENT TO DOS */}
+        <Text style = {styles.header}>To Do List</Text>
+        
         {/* INPUTS */}
 
+        <Text>Title</Text>
         <TextInput style = {styles.input} 
         onChangeText={(txt)=>
         {this.setState({title:txt});}}/>
 
+        <Text>Body</Text>
         <TextInput style = {styles.input} 
         onChangeText={(txt)=>
         {this.setState({body:txt});}}/>
 
-        
+          {/* BUTTONS */}
+
+        <Button 
+          title="Add To Do Item"
+          onPress={()=> this.addToDoItem()}
+        />
+
+        <Button 
+          title="Clear All To Dos"
+          onPress={()=> {this.setState({todos:[]});}}/>
+
 
 
         </SafeAreaView>
 
-        
-// // Text Inputs
-// <TextInput 
-// style={styles.input}
-// onChangeText={(title)=>this.newTitle(title)}
-// />
+  
 
-// <TextInput 
-// style={styles.input}
-// onChangeText={(body)=>this.newBody(body)}
-// />
-
-// {/* ADD TO DO BUTTON */}
-//   <Button 
-//     title="Add to do"
-//     onPress={()=>{
-//       console.log("hey");
-//     }}
-//   />
-
-// {/* CLEAR TO DO BUTTON */}
-// <Button 
-//     title="Clear all"
-//     onPress={()=>{
-//       console.log("hey");
-//     }}
-//   />
     );
 }
 }
+
 
 const styles = StyleSheet.create({
     container: {
@@ -93,7 +106,5 @@ const styles = StyleSheet.create({
       padding: 10,
       width:'90%'
     },
-    checkbox: {
-      margin: 8,
-    },
+  
   });
