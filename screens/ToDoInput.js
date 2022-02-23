@@ -47,7 +47,7 @@ export default class ToDoInput extends Component {
 
   render() {
     const { navigation, route,task } = this.props;
-    let { title,body,todos,list, } = this.state;
+    let {todos } = this.state;
   
 
  
@@ -62,7 +62,7 @@ export default class ToDoInput extends Component {
         <FlatList
             data={todos}
             renderItem={({ item }) => (
-              <ToDoItem item={item} navigation = {navigation}
+            <ToDoItem item={item} navigation = {navigation}
               onPress={(item) => this.onPress(item)} />
             )}
           />
