@@ -13,10 +13,7 @@ import ToDoList from "../components/ToDoList";
 
 export default class ToDoInput extends Component {
   state = {
-    todoItems: [
-      ["Wash Car", "Deep clean interior"],
-      ["Bake Bread", "Matcha bread"],
-    ],
+    todoItems: [],
     newItemTitle: "",
     newItemBody: "",
   };

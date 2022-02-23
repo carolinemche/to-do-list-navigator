@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: "4%",
     color: "black",
+    width: "100%",
   },
   listItemTextDone: {
     color: "gray",
