@@ -1,110 +1,124 @@
-import React,{Component} from 'react';
-import { StyleSheet, Text, View,Button,TextInput,SafeAreaView} from 'react-native';
-import ToDoItem from  '../components/ToDoItem';
-
-
+import React, { Component } from "react";
+import {
+  CheckBox,
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TextInput,
+  SafeAreaView,
+} from "react-native";
+// Component imports
+import ToDoList from "../components/ToDoList";
 
 export default class ToDoInput extends Component {
   state = {
-    title: "",
-    body: "",
-    todos:[]
-
+    todoItems: [
+      ["Wash Car", "Deep clean interior"],
+      ["Bake Bread", "Matcha bread"],
+    ],
+    newItemTitle: "",
+    newItemBody: "",
   };
 
-  addToDoItem(){
+  // Called when pressing "Add To Do" button
+  addItem() {
+    const newList = this.state.todoItems;
+    newList.push([this.state.newItemTitle, this.state.newItemBody]);
 
-    let currentTitle = this.state.title;
-    let currentBody = this.state.body;
-    let todolist = this.state.todos;
-    
-    
-    let task ={
-      id: todolist.length,
-      title: currentTitle ,
-      body: currentBody,
-      // completion task
-      status: false
-    }
+    this.setState(
+      {
+        todoItems: newList,
+        newItemTitle: "",
+        newItemBody: "",
+      },
+      () => {}
+    );
+  }
 
-    //add task to the to do list
-    todolist.push(task);
-
-    }
-   
-
-  
-
-
+  // Called when pressing "Clear" button
+  clearItems() {
+    this.setState(
+      {
+        todoItems: [],
+      },
+      () => {}
+    );
+  }
 
   render() {
-    const { navigation, route } = this.props;
-    let { title,body,todos } = this.state;
-  
+    const { navigation } = this.props;
+    return (
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.header}>To-Do List</Text>
 
- 
-    return(
-        <SafeAreaView style={styles.container}>
+        <ToDoList navigation={navigation} todoList={this.state.todoItems} />
 
+        <View style={styles.inputsContainer}>
+          <Text>Title</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={(item) => {
+              this.setState({ newItemTitle: item });
+            }}
+            value={this.state.newItemTitle}
+          />
 
-        {/* CURRENT TO DOS */}
-        <Text style = {styles.header}>To Do List</Text>
-        
-        {/* INPUTS */}
+          <Text>Body</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={(item) => {
+              this.setState({ newItemBody: item });
+            }}
+            value={this.state.newItemBody}
+          />
+        </View>
 
-        <Text>Title</Text>
-        <TextInput style = {styles.input} 
-        onChangeText={(txt)=>
-        {this.setState({title:txt});}}/>
+        <View style={styles.buttonsContainer}>
+          <Button
+            title="Add to do"
+            onPress={() => {
+              this.addItem();
+            }}
+          />
 
-        <Text>Body</Text>
-        <TextInput style = {styles.input} 
-        onChangeText={(txt)=>
-        {this.setState({body:txt});}}/>
-
-          {/* BUTTONS */}
-
-        <Button 
-          title="Add To Do Item"
-          onPress={()=> this.addToDoItem()}
-        />
-
-        <Button 
-          title="Clear All To Dos"
-          onPress={()=> {this.setState({todos:[]});}}/>
-
-
-
-        </SafeAreaView>
-
-  
-
+          <Button
+            title="Clear"
+            onPress={() => {
+              this.clearItems();
+            }}
+          />
+        </View>
+      </SafeAreaView>
     );
+  }
 }
-}
-
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      marginHorizontal: 16,
-      marginVertical: 32,
-    },
-    section: {
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    header:{
-      fontSize:24,
-      fontWeight:'bold',
-      margin:24
-    },
-    input: {
-      height: 40,
-      margin: 12,
-      borderWidth: 1,
-      padding: 10,
-      width:'90%'
-    },
-  
-  });
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center", // Horizontal alignment
+    justifyContent: "flex-start", // Vertical alignment
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 10,
+    marginTop: "10%",
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+  },
+  inputsContainer: {
+    width: "90%",
+  },
+  buttonsContainer: {
+    flexDirection: "row",
+    width: "60%",
+    justifyContent: "space-between",
+  },
+});

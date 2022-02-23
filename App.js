@@ -16,6 +16,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import ToDoInput from "./screens/ToDoInput.js";
 import ToDoDetails from "./screens/ToDoDetails.js";
 import Account from "./screens/Account.js";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 // Initialize Navigations
 const Tab = createBottomTabNavigator();
@@ -24,13 +25,17 @@ const Stack = createStackNavigator();
 class ToDoStack extends Component {
   render() {
     return (
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerTintColor: "black",
+          headerStyle: { backgroundColor: "white" },
+        }}
+      >
         <Stack.Screen
           name="toDoInput"
           component={ToDoInput}
-          screenOptions={{
-            headerTintColor: "white",
-            headerStyle: { backgroundColor: "blue" },
+          options={{
+            headerShown: false,
           }}
         />
 
@@ -39,6 +44,18 @@ class ToDoStack extends Component {
           component={ToDoDetails}
           options={{
             title: "To-Do Details",
+            headerRight: ({ focused, color, size }) => (
+              <TouchableOpacity>
+                <Ionicons
+                  name={
+                    focused ? "checkmark-circle" : "checkmark-circle-outline"
+                  }
+                  size={30}
+                  color={color}
+                  style={styles.iconContainer}
+                />
+              </TouchableOpacity>
+            ),
           }}
         />
       </Stack.Navigator>
@@ -48,7 +65,6 @@ class ToDoStack extends Component {
 
 export default class App extends Component {
   render() {
-    
     return (
       <NavigationContainer>
         <Tab.Navigator
@@ -64,13 +80,17 @@ export default class App extends Component {
 
               return <Ionicons name={iconName} size={size} color={color} />;
             },
+            tabBarActiveTintColor: "blue",
+            tabBarInactiveTintColor: "black",
+            tabBarStyle: [
+              {
+                display: "flex",
+              },
+            ],
+            headerShown: false,
           })}
-          tabBarOptions={{
-            activeTintColor: "blue",
-            inactiveTintColor: "black",
-          }}
         >
-          <Tab.Screen name="To-Dos" component={ToDoInput} />
+          <Tab.Screen name="To-Dos" component={ToDoStack} />
           <Tab.Screen name="Account" component={Account} />
         </Tab.Navigator>
       </NavigationContainer>
@@ -78,18 +98,8 @@ export default class App extends Component {
   }
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: "center",
-//     paddingTop: Constants.statusBarHeight,
-//     backgroundColor: "#ecf0f1",
-//     padding: 8,
-//   },
-//   paragraph: {
-//     margin: 24,
-//     fontSize: 18,
-//     fontWeight: "bold",
-//     textAlign: "center",
-//   },
-// });
+const styles = StyleSheet.create({
+  iconContainer: {
+    marginRight: "10%",
+  },
+});
