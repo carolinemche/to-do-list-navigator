@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { StyleSheet, Text, View,Button,TextInput,SafeAreaView} from 'react-native';
+import { StyleSheet, Text, View,Button,TextInput,FlatList,SafeAreaView} from 'react-native';
 import ToDoItem from  '../components/ToDoItem';
 
 
@@ -16,11 +16,11 @@ export default class ToDoInput extends Component {
 
     let currentTitle = this.state.title;
     let currentBody = this.state.body;
-    let todolist = this.state.todos;
+    let todolist = this.state.todos
+
     
     
-    let task ={
-      id: todolist.length,
+    let item ={
       title: currentTitle ,
       body: currentBody,
       // completion task
@@ -28,18 +28,26 @@ export default class ToDoInput extends Component {
     }
 
     //add task to the to do list
-    todolist.push(task);
+    todolist.push(item);
+    this.setState({todos: todolist,title:'',body:''})
 
     }
    
+    onPress(item){
 
+      //change to opposite status depending on current status
+      item.status = !item.status;
+      this.setState({todos:this.state.todos});
+    }
+
+
+  
   
 
 
-
   render() {
-    const { navigation, route } = this.props;
-    let { title,body,todos } = this.state;
+    const { navigation, route,task } = this.props;
+    let { title,body,todos,list, } = this.state;
   
 
  
@@ -49,6 +57,20 @@ export default class ToDoInput extends Component {
 
         {/* CURRENT TO DOS */}
         <Text style = {styles.header}>To Do List</Text>
+
+        <View style = {styles.section}>
+        <FlatList
+            data={todos}
+            renderItem={({ item }) => (
+              <ToDoItem item={item} navigation = {navigation}
+              onPress={(item) => this.onPress(item)} />
+            )}
+          />
+
+
+
+      </View>
+
         
         {/* INPUTS */}
 
@@ -57,7 +79,7 @@ export default class ToDoInput extends Component {
         onChangeText={(txt)=>
         {this.setState({title:txt});}}/>
 
-        <Text>Body</Text>
+        <Text>Description</Text>
         <TextInput style = {styles.input} 
         onChangeText={(txt)=>
         {this.setState({body:txt});}}/>
@@ -92,12 +114,12 @@ const styles = StyleSheet.create({
     },
     section: {
       flexDirection: 'row',
-      alignItems: 'center',
+      marginBottom: 20
     },
     header:{
       fontSize:24,
       fontWeight:'bold',
-      margin:24
+      marginBottom: 10
     },
     input: {
       height: 40,

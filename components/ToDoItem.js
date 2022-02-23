@@ -1,15 +1,28 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View,Button,TextInput,SafeAreaView} from 'react-native';
+import { StyleSheet, Pressable,Text, View,Button,TextInput,SafeAreaView} from 'react-native';
 import Checkbox from 'expo-checkbox';
-import ToDoDetails from '../screens/ToDoDetails'
+import ToDoDetails from '../screens/ToDoDetails';
 
 export default class ToDoItem extends Component {
   render () {
-    const { navigation, route } = this.props;
+    const { navigation,item,route} = this.props;
 
     return (
       <SafeAreaView style={styles.container}>
-      
+    
+      <Checkbox style={styles.checkbox}
+     value={item.status} onValueChange={() => { this.props.onPress(item);}}
+     />
+
+
+
+      <Pressable onPress={()=>{
+         navigation.navigate('ToDoDetails',{item:item})
+        }}>
+
+<Text style ={styles.text}>{item.title}</Text>
+
+        </Pressable>
     
 
       </SafeAreaView>
@@ -20,8 +33,16 @@ export default class ToDoItem extends Component {
 
 const styles = StyleSheet.create({
     container: {
-            flex: 1,
-            justifyContent: "center",
+            flex:1,
+
+            // have the check box and text be in the same row
+            flexDirection: "row",
+            
+          },
+          checkbox: {
+            margin: 5
+          },
+          text:{
+              margin:6
           }
- 
 });

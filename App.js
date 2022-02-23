@@ -26,7 +26,7 @@ class ToDoStack extends Component {
     return (
       <Stack.Navigator>
         <Stack.Screen
-          name="toDoInput"
+          name="ToDoInput"
           component={ToDoInput}
           screenOptions={{
             headerTintColor: "white",
@@ -35,10 +35,10 @@ class ToDoStack extends Component {
         />
 
         <Stack.Screen
-          name="toDoDetails"
+          name="ToDoDetails"
           component={ToDoDetails}
           options={{
-            title: "To-Do Details",
+            title: "To Do Details",
           }}
         />
       </Stack.Navigator>
@@ -70,7 +70,7 @@ export default class App extends Component {
             inactiveTintColor: "black",
           }}
         >
-          <Tab.Screen name="To-Dos" component={ToDoInput} />
+          <Tab.Screen name="To Do Items" component={ToDoInput} />
           <Tab.Screen name="Account" component={Account} />
         </Tab.Navigator>
       </NavigationContainer>
