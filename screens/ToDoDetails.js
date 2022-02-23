@@ -13,7 +13,7 @@ export default class ToDoDetails extends Component {
       <SafeAreaView style={styles.container} >
       <Text>To Do Details</Text>
       <Text> Task: {item.title} </Text>
-      <Text> Status: {item.status? "Completed": "Not Completed"} </Text>
+      <Text> Status: {item.status? "Completed": "Incompleted"} </Text>
       <Text> Description: {item.body} </Text>
       </ SafeAreaView>        
     )
